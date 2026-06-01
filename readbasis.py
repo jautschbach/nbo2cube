@@ -36,7 +36,7 @@ def parse_file47(filename):
         return values
 
     def parse_int_array(varname, content):
-        pattern = re.compile(rf'{varname}\s+=\s+([\d\s]+)')
+        pattern = re.compile(rf'{varname}\s*=\s*([\d\s]+)')
         matches = pattern.findall(content)
         values = []
         for match in matches:
@@ -101,7 +101,7 @@ def parse_file47(filename):
         return orb_type, orb_val, shell_num
 
     def system_info(content):
-        bohr_to_ang = physical_constants['Bohr radius'][0] * 1e10  # Bohr to Ångström
+        bohr_to_ang = physical_constants['Bohr radius'][0] * 1e10  # Bohr to Angström
         use_bohr = "BOHR" in content.upper()
         to_bohr = 1 if use_bohr else bohr_to_ang
 
@@ -190,10 +190,45 @@ def parse_file47(filename):
                 "exps": EXP[ptr - 1: ptr - 1 + prim]
             }
 
+            # coeffs = []
+            # for coeff_array in [CS, CP, CD, CF, CG, CH, CI, CJ]:
+            #     slice_ = coeff_array[ptr - 1: ptr - 1 + prim]
+            #     coeffs.extend([c for c in slice_ if c != 0.0])
+            # info["coeffs"] = coeffs
+
+
+            type_to_coeff = {
+                # s
+                's': CS,
+                # p
+                'px': CP, 'py': CP, 'pz': CP,
+                # d
+                'd_xy': CD, 'd_xz': CD, 'd_yz': CD, 'd_x2-y2': CD, 'd_z2': CD,
+                # f
+                'fz(5z2-3r2)': CF, 'fx(5z2-r2)': CF, 'fy(5z2-r2)': CF,
+                'fz(x2-y2)': CF, 'fxyz': CF, 'fx(x2-3y2)': CF, 'f(3x2-y2)': CF,
+                # g
+                'g0': CG, 'gc1': CG, 'gs1': CG, 'gc2': CG, 'gs2': CG,
+                'gc3': CG, 'gs3': CG, 'gc4': CG, 'gs4': CG,
+                # h
+                'h0': CH, 'hc1': CH, 'hs1': CH, 'hc2': CH, 'hs2': CH,
+                'hc3': CH, 'hs3': CH, 'hc4': CH, 'hs4': CH,
+                'hc5': CH, 'hs5': CH,
+                # i
+                'i0': CI, 'ic1': CI, 'is1': CI, 'ic2': CI, 'is2': CI,
+                'ic3': CI, 'is3': CI, 'ic4': CI, 'is4': CI,
+                'ic5': CI, 'is5': CI, 'ic6': CI, 'is6': CI,
+                # j
+                'j0': CJ, 'jc1': CJ, 'js1': CJ, 'jc2': CJ, 'js2': CJ,
+                'jc3': CJ, 'js3': CJ, 'jc4': CJ, 'js4': CJ,
+                'jc5': CJ, 'js5': CJ, 'jc6': CJ, 'js6': CJ,
+                'jc7': CJ, 'js7': CJ,
+            }
+            
             coeffs = []
-            for coeff_array in [CS, CP, CD, CF, CG, CH, CI, CJ]:
-                slice_ = coeff_array[ptr - 1: ptr - 1 + prim]
-                coeffs.extend([c for c in slice_ if c != 0.0])
+            coeff_array = type_to_coeff.get(orb_type[i], CS)
+            slice_ = coeff_array[ptr - 1: ptr - 1 + prim]
+            coeffs = list(slice_)  # no zero-filtering
             info["coeffs"] = coeffs
 
             atom_coord = atom_data[atom_idx][2:5]  # x, y, z
@@ -203,7 +238,7 @@ def parse_file47(filename):
 
             bas_info_dict.append(info)
 
-        # Convert atom coordinates to Ångström for output
+        # Convert atom coordinates to Angström for output
         atom_data_ang = [
             (z, charge, x * bohr_to_ang, y * bohr_to_ang, z_ * bohr_to_ang)
             if use_bohr else (z, charge, x, y, z_)
