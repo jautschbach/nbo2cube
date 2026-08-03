@@ -64,10 +64,10 @@ inline double solid_harmonic(double dx, double dy, double dz, const std::string&
     if (orb_val == "hs2")  return 10.2469507659596 * dx*dy*dz*dz*dz - 5.12347538297980 * dx*powi(dy,3)*dz - 5.12347538297980 * powi(dx,3)*dy*dz;
     if (orb_val == "hc3")  return -0.522912516583797 * powi(dx,5) + 1.04582503316759 * powi(dx,3)*dy*dy + 4.18330013267038 * powi(dx,3)*dz*dz + 1.56873754975139 * dx*powi(dy,4)
         - 12.5499003980111 * dx*dy*dy*dz*dz;
-    if (orb_val == "hs3")  return 0.522912516583797 * powi(dy,5) - 1.04582503316759 * dx*dx*powi(dy,3) - 4.18330013267038 * dy*dy*dz*dz*dz - 1.56873754975139 * powi(dx,4)*dy
+    if (orb_val == "hs3")  return 0.522912516583797 * powi(dy,5) - 1.04582503316759 * dx*dx*powi(dy,3) - 4.18330013267038 * powi(dy,3)*dz*dz - 1.56873754975139 * powi(dx,4)*dy
         + 12.5499003980111 * dx*dx*dy*dz*dz;
-    if (orb_val == "hc4")  return 2.21852991866236 * dx*dx*dz*dz*dz + 2.21852991866236 * dy*dy*dz*dz*dz - 13.3111795119741 * dx*dx*dy*dy*dz;
-    if (orb_val == "hs4")  return 8.87411967464942 * dx*dy*dz*dz*dz - 8.87411967464942 * dx*dx*dy*dz*dz;
+    if (orb_val == "hc4")  return 2.21852991866236 * powi(dx,4)*dz + 2.21852991866236 * powi(dy,4)*dz - 13.3111795119741 * dx*dx*dy*dy*dz;
+    if (orb_val == "hs4")  return 8.87411967464942 * powi(dx,3)*dy*dz - 8.87411967464942 * dx*dy*dy*dy*dz;
     if (orb_val == "hc5")  return 0.701560760020114 * powi(dx,5) + 3.50780380010057 * dx*powi(dy,4) - 7.01560760020114 * powi(dx,3)*dy*dy;
     if (orb_val == "hs5")  return 0.701560760020114 * powi(dy,5) + 3.50780380010057 * powi(dx,4)*dy - 7.01560760020114 * dx*dx*powi(dy,3);
 
