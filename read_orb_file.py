@@ -4,7 +4,6 @@ import os
 from readbasis import final_norm_basis
 
 NBAS = len(final_norm_basis)
-
 def get_cmos(orbital_file):
     try:
         with open(orbital_file, "r") as file:
