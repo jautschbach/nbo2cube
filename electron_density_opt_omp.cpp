@@ -56,17 +56,21 @@ inline double solid_harmonic(double dx, double dy, double dz, const std::string&
 
    
     // h
-    if (orb_val == "h0") return 1.875 * powi(dx,4) * dz + 3.75 * powi(dx,2) * powi(dy,2) * dz - 5.0 * powi(dx,2) * powi(dz,3) + 1.875 * powi(dy,4) * dz - 5.0 * powi(dy,2) * powi(dz,3) + 1.0 * powi(dz,5);
-    if (orb_val == "hc1") return 0.484122918275927 * powi(dx,5) + 0.968245836551854 * powi(dx,3) * powi(dy,2) - 5.80947501931113 * powi(dx,3) * powi(dz,2) + 0.484122918275927 * dx * powi(dy,4) - 5.80947501931113 * dx * powi(dy,2) * powi(dz,2) + 3.87298334620742 * dx * powi(dz,4);
-    if (orb_val == "hs1") return 0.484122918275927 * powi(dx,4) * dy + 0.968245836551854 * powi(dx,2) * powi(dy,3) - 5.80947501931113 * powi(dx,2) * dy * powi(dz,2) + 0.484122918275927 * powi(dy,5) - 5.80947501931113 * powi(dy,3) * powi(dz,2) + 3.87298334620742 * dy * powi(dz,4);
-    if (orb_val == "hc2") return -2.5617376914899 * powi(dx,4) * dz + 5.1234753829798 * powi(dx,2) * powi(dz,3) + 2.5617376914899 * powi(dy,4) * dz - 5.1234753829798 * powi(dy,2) * powi(dz,3);
-    if (orb_val == "hs2") return -5.1234753829798 * powi(dx,3) * dy * dz - 5.1234753829798 * dx * powi(dy,3) * dz + 10.2469507659596 * dx * dy * powi(dz,3);
-    if (orb_val == "hc3") return -0.522912516583797 * powi(dx,5) + 1.04582503316759 * powi(dx,3) * powi(dy,2) + 4.18330013267038 * powi(dx,3) * powi(dz,2) + 1.56873754975139 * dx * powi(dy,4) - 12.5499003980111 * dx * powi(dy,2) * powi(dz,2);
-    if (orb_val == "hs3") return -1.56873754975139 * powi(dx,4) * dy - 1.04582503316759 * powi(dx,2) * powi(dy,3) + 12.5499003980111 * powi(dx,2) * dy * powi(dz,2) + 0.522912516583797 * powi(dy,5) - 4.18330013267038 * powi(dy,3) * powi(dz,2);
-    if (orb_val == "hc4") return 2.21852991866236 * powi(dx,4) * dz - 13.3111795119741 * powi(dx,2) * powi(dy,2) * dz + 2.21852991866236 * powi(dy,4) * dz;
-    if (orb_val == "hs4") return 8.87411967464942 * powi(dx,3) * dy * dz - 8.87411967464942 * dx * powi(dy,3) * dz;
-    if (orb_val == "hc5") return 0.701560760020114 * powi(dx,5) - 7.01560760020114 * powi(dx,3) * powi(dy,2) + 3.50780380010057 * dx * powi(dy,4);
-    if (orb_val == "hs5") return 3.50780380010057 * powi(dx,4) * dy - 7.01560760020114 * powi(dx,2) * powi(dy,3) + 0.701560760020114 * powi(dy,5);
+    if (orb_val == "h0")   return powi(dz,5) + 1.875*powi(dx,4)*dz + 1.875*powi(dy,4)*dz - 5.0*dx*dx*dz*dz*dz - 5.0*dy*dy*dz*dz*dz + 3.75*dx*dx*dy*dy*dz;
+    if (orb_val == "hc1")  return 0.484122918275927 * powi(dx,5) + 0.484122918275927 * dx*powi(dy,4) + 0.968245836551854 * powi(dx,3)*dy*dy + 3.87298334620742 * dx*powi(dz,4)
+        - 5.80947501931113 * powi(dx,3)*dz*dz - 5.80947501931113 * dx*dy*dy*dz*dz;
+    if (orb_val == "hs1")  return 0.484122918275927 * powi(dy,5) + 0.484122918275927 * powi(dx,4)*dy + 0.968245836551854 * dx*dx*powi(dy,3) + 3.87298334620742 * dy*powi(dz,4)
+        - 5.80947501931113 * dx*dx*dy*dz*dz - 5.80947501931113 * powi(dy,3)*dz*dz;
+    if (orb_val == "hc2")  return 2.56173769148990 * powi(dy,4)*dz + 5.12347538297980 * dx*dx*dz*dz*dz - 2.56173769148990 * powi(dx,4)*dz - 5.12347538297980 * dy*dy*dz*dz*dz;
+    if (orb_val == "hs2")  return 10.2469507659596 * dx*dy*dz*dz*dz - 5.12347538297980 * dx*powi(dy,3)*dz - 5.12347538297980 * powi(dx,3)*dy*dz;
+    if (orb_val == "hc3")  return -0.522912516583797 * powi(dx,5) + 1.04582503316759 * powi(dx,3)*dy*dy + 4.18330013267038 * powi(dx,3)*dz*dz + 1.56873754975139 * dx*powi(dy,4)
+        - 12.5499003980111 * dx*dy*dy*dz*dz;
+    if (orb_val == "hs3")  return 0.522912516583797 * powi(dy,5) - 1.04582503316759 * dx*dx*powi(dy,3) - 4.18330013267038 * powi(dy,3)*dz*dz - 1.56873754975139 * powi(dx,4)*dy
+        + 12.5499003980111 * dx*dx*dy*dz*dz;
+    if (orb_val == "hc4")  return 2.21852991866236 * powi(dx,4)*dz + 2.21852991866236 * powi(dy,4)*dz - 13.3111795119741 * dx*dx*dy*dy*dz;
+    if (orb_val == "hs4")  return 8.87411967464942 * powi(dx,3)*dy*dz - 8.87411967464942 * dx*dy*dy*dy*dz;
+    if (orb_val == "hc5")  return 0.701560760020114 * powi(dx,5) + 3.50780380010057 * dx*powi(dy,4) - 7.01560760020114 * powi(dx,3)*dy*dy;
+    if (orb_val == "hs5")  return 0.701560760020114 * powi(dy,5) + 3.50780380010057 * powi(dx,4)*dy - 7.01560760020114 * dx*dx*powi(dy,3);
 
     // i
     if (orb_val == "i0") return -0.3125 * powi(dx,6) - 0.9375 * powi(dx,4) * powi(dy,2) + 5.625 * powi(dx,4) * powi(dz,2) - 0.9375 * powi(dx,2) * powi(dy,4) + 11.25 * powi(dx,2) * powi(dy,2) * powi(dz,2) - 7.5 * powi(dx,2) * powi(dz,4) - 0.3125 * powi(dy,6) + 5.625 * powi(dy,4) * powi(dz,2) - 7.5 * powi(dy,2) * powi(dz,4) + 1.0 * powi(dz,6);
