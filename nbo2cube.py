@@ -571,7 +571,7 @@ while True:
         break
     elif run_method == 3:
         start = time.perf_counter()
-        unvectorized(points)
+        unvectorized()
         end = time.perf_counter()
         print(f"unvectorized() runtime: {end - start:.6f} seconds")
         break

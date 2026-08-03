@@ -26,7 +26,7 @@ def parse_file47(filename):
     file_content = read_file47(filename)
 
     def parse_array_from_block(varname, content, dtype=float):
-        pattern = re.compile(rf'{varname}\s+=\s+((?:[-+]?\d+\.\d+(?:E[+-]?\d+)?\s+)+)')
+        pattern = re.compile(rf'(?<![A-Z]){varname}(?![A-Z])\s*=\s*((?:[-+]?\d+\.\d+(?:E[+-]?\d+)?\s+)+)')
         matches = pattern.findall(content)
         values = []
         for match in matches:
@@ -36,7 +36,7 @@ def parse_file47(filename):
         return values
 
     def parse_int_array(varname, content):
-        pattern = re.compile(rf'{varname}\s*=\s*([\d\s]+)')
+        pattern = re.compile(rf'(?<![A-Z]){varname}(?![A-Z])\s*=\s*([\d\s]+)')
         matches = pattern.findall(content)
         values = []
         for match in matches:
@@ -101,7 +101,7 @@ def parse_file47(filename):
         return orb_type, orb_val, shell_num
 
     def system_info(content):
-        bohr_to_ang = physical_constants['Bohr radius'][0] * 1e10  # Bohr to Angström
+        bohr_to_ang = physical_constants['Bohr radius'][0] * 1e10  # Bohr to Angstrom
         use_bohr = "BOHR" in content.upper()
         to_bohr = 1 if use_bohr else bohr_to_ang
 
@@ -238,7 +238,7 @@ def parse_file47(filename):
 
             bas_info_dict.append(info)
 
-        # Convert atom coordinates to Angström for output
+        # Convert atom coordinates to Angstrom for output
         atom_data_ang = [
             (z, charge, x * bohr_to_ang, y * bohr_to_ang, z_ * bohr_to_ang)
             if use_bohr else (z, charge, x, y, z_)
@@ -774,7 +774,6 @@ else:
 print('Basis information extracted and renormalized...')
 end = time.perf_counter()
 print(f"Read Basis runtime: {end - start:.6f} seconds\n")
-
 
 
 
